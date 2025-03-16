@@ -5,12 +5,19 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
-    return Column(
-      children: [
-        Image.asset("assets/image/quiz-logo.png"),
-        ElevatedButton(onPressed: (){}, child: Text("START"))
-      ],
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset("assets/image/quiz-logo.png", width: 300),
+          SizedBox(height: 30),
+          ElevatedButton(
+            onPressed: () {},
+            style: TextButton.styleFrom( fixedSize: Size.fromWidth(200)),
+            child: Text("START", style: TextStyle(color: Colors.black),),
+          ),
+        ],
+      ),
     );
   }
 }
