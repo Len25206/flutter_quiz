@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quiz/answer_button.dart';
 import 'package:flutter_quiz/data/questions.dart';
-import 'package:flutter_quiz/models/quiz_question.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class QuestionsPage extends StatefulWidget {
-  const QuestionsPage({super.key,required this.onSelectedAnswer,});
+  const QuestionsPage({super.key, required this.onSelectedAnswer});
 
   final void Function(String answer) onSelectedAnswer;
 
@@ -16,18 +15,15 @@ class QuestionsPage extends StatefulWidget {
 class _QuestionPage extends State<QuestionsPage> {
   int currentIndexQuestion = 0;
   void nextQuestion(String tapAnswer) {
-    setState(() {
       widget.onSelectedAnswer(tapAnswer);
+    setState(() {
       currentIndexQuestion++;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    late QuizQuestion currentQuestion;
-    if (currentIndexQuestion != questions.length) {
-      currentQuestion = questions[currentIndexQuestion];
-    }
+    final currentQuestion = questions[currentIndexQuestion];
 
     return SizedBox(
       width: double.infinity,
@@ -49,9 +45,12 @@ class _QuestionPage extends State<QuestionsPage> {
               ),
               const SizedBox(height: 30),
               ...currentQuestion.getShuffleAnswer().map((item) {
-                return AnswerButton(answerText: item, answerTap: (){
-                  nextQuestion(item);
-                });
+                return AnswerButton(
+                  answerText: item,
+                  answerTap: () {
+                    nextQuestion(item);
+                  },
+                );
               }),
             ],
           ),
