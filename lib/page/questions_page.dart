@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quiz/answer_button.dart';
 import 'package:flutter_quiz/data/questions.dart';
 import 'package:flutter_quiz/models/quiz_question.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class QuestionsPage extends StatefulWidget {
-  const QuestionsPage({super.key});
+  const QuestionsPage({super.key,required this.onSelectedAnswer,});
+
+  final void Function(String answer) onSelectedAnswer;
 
   @override
   State<QuestionsPage> createState() => _QuestionPage();
@@ -12,8 +15,9 @@ class QuestionsPage extends StatefulWidget {
 
 class _QuestionPage extends State<QuestionsPage> {
   int currentIndexQuestion = 0;
-  void nextQuestion() {
+  void nextQuestion(String tapAnswer) {
     setState(() {
+      widget.onSelectedAnswer(tapAnswer);
       currentIndexQuestion++;
     });
   }
@@ -22,9 +26,9 @@ class _QuestionPage extends State<QuestionsPage> {
   Widget build(BuildContext context) {
     late QuizQuestion currentQuestion;
     if (currentIndexQuestion != questions.length) {
-    currentQuestion = questions[currentIndexQuestion];
+      currentQuestion = questions[currentIndexQuestion];
     }
-    
+
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -36,12 +40,18 @@ class _QuestionPage extends State<QuestionsPage> {
             children: [
               Text(
                 currentQuestion.text,
-                style: TextStyle(color: Colors.white),
+                style: GoogleFonts.prompt(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 30),
               ...currentQuestion.getShuffleAnswer().map((item) {
-                return AnswerButton(answerText: item, answerTap: nextQuestion);
+                return AnswerButton(answerText: item, answerTap: (){
+                  nextQuestion(item);
+                });
               }),
             ],
           ),
