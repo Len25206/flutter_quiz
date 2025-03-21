@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quiz/data/questions.dart';
+import 'package:flutter_quiz/page/question_summary_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResultPage extends StatelessWidget {
@@ -19,11 +20,11 @@ class ResultPage extends StatelessWidget {
 
     for (var i = 0; i < chosenAnswer.length; i++) {
       summary.add({
-              'question_index' : i,
-              'question': questions[i].text,
-              'correct_answer' : questions[i].answer[0],
-              'user_answer': chosenAnswer[i]
-              });
+        'question_index': i,
+        'question': questions[i].text,
+        'correct_answer': questions[i].answer[0],
+        'user_answer': chosenAnswer[i],
+      });
     }
 
     return summary;
@@ -31,6 +32,12 @@ class ResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final summaryData = getSummaryData();
+    final totalOfQuestion = questions.length;
+    final totalOfCorrectQuestion =
+        summaryData.where((data) {
+          return data['user_answer'] == data['correct_answer'];
+        }).length;
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -38,10 +45,16 @@ class ResultPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('You answer X out of Y question!'),
+            Text(
+              'You answer $totalOfCorrectQuestion out of $totalOfQuestion question!',
+              style: GoogleFonts.prompt(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 20),
-            
-            // Text("List of answer"),
+            QuestionSummaryPage(summaryData: summaryData),
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: backToQuizPage,
