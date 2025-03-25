@@ -38,6 +38,11 @@ class ResultPage extends StatelessWidget {
         summaryData.where((data) {
           return data['user_answer'] == data['correct_answer'];
         }).length;
+
+    bool answerStatus = summaryData.every((data) {
+      return data['user_answer'] == data['correct_answer'];
+    });
+
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -46,6 +51,7 @@ class ResultPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
+              textAlign: TextAlign.center,
               'You answer $totalOfCorrectQuestion out of $totalOfQuestion question!',
               style: GoogleFonts.prompt(
                 color: Colors.white,
@@ -54,7 +60,10 @@ class ResultPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            QuestionSummaryPage(summaryData: summaryData),
+            QuestionSummaryPage(
+              summaryData: summaryData,
+              isCorrectAnswer: answerStatus,
+            ),
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: backToQuizPage,
