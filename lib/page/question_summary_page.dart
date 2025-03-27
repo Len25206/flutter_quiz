@@ -34,8 +34,7 @@ class QuestionSummaryPage extends StatelessWidget {
                               height: 30,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color:
-                                    resultColor, // Set the color based on correctness
+                                color: resultColor,
                               ),
                               child: Center(
                                 child: Text(
@@ -45,20 +44,27 @@ class QuestionSummaryPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Text(
-                              textAlign: TextAlign.center,
-                              data['question'] as String,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
+                            SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                textAlign: TextAlign.left,
+                                data['question'] as String,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                softWrap: true,
                               ),
                             ),
                           ],
                         ),
+
                         SizedBox(height: 5),
                         Text(
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.left,
                           data['correct_answer'] as String,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 71, 179, 230),
