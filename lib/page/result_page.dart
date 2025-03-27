@@ -34,13 +34,9 @@ class ResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final totalOfQuestion = questions.length;
     final totalOfCorrectQuestion =
-        summaryData.where((data) {
-          return data['user_answer'] == data['correct_answer'];
-        }).length;
-
-    bool answerStatus = summaryData.every((data) {
-      return data['user_answer'] == data['correct_answer'];
-    });
+        summaryData
+            .where((data) => data['user_answer'] == data['correct_answer'])
+            .length;
 
     return SizedBox(
       width: double.infinity,
@@ -59,10 +55,7 @@ class ResultPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            QuestionSummaryPage(
-              summaryData: summaryData,
-              isCorrectAnswer: answerStatus,
-            ),
+            QuestionSummaryPage(summaryData: summaryData),
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: backToQuizPage,

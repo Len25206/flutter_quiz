@@ -4,11 +4,9 @@ class QuestionSummaryPage extends StatelessWidget {
   const QuestionSummaryPage({
     super.key,
     required this.summaryData,
-    required this.isCorrectAnswer,
   });
 
   final List<Map<String, Object>> summaryData;
-  final bool isCorrectAnswer;
 
   @override
   Widget build(BuildContext context) {
