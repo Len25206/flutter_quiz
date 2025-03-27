@@ -15,7 +15,7 @@ class ResultPage extends StatelessWidget {
 
   final void Function() backToQuizPage;
 
-  List<Map<String, Object>> getSummaryData() {
+  List<Map<String, Object>> get summaryData {
     final List<Map<String, Object>> summary = [];
 
     for (var i = 0; i < chosenAnswer.length; i++) {
@@ -32,7 +32,6 @@ class ResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final summaryData = getSummaryData();
     final totalOfQuestion = questions.length;
     final totalOfCorrectQuestion =
         summaryData.where((data) {

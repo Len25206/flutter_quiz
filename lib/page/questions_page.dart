@@ -44,7 +44,7 @@ class _QuestionPage extends State<QuestionsPage> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 30),
-              ...currentQuestion.getShuffleAnswer().map((item) {
+              ...currentQuestion.shuffleAnswer.map((item) {
                 return AnswerButton(
                   answerText: item,
                   answerTap: () {
